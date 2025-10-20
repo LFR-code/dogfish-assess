@@ -561,8 +561,23 @@ xx |>
   geom_smooth(se = FALSE, method = "lm") +
   # geom_vline(xintercept = c(2009), lty = 2) +
   xlab("Year") + ylab("Weight (kg)") +
-  scale_x_continuous(breaks = seq(2000, 2022, 2))
+  scale_x_continuous(breaks = seq(2000, 2022, 2)) +
+  theme_light()
 ggsave(here("figs/weight-longline-keepers-unsorted.png"), width = 7, height = 5)
+
+xx |> 
+  filter(year > 2000) |> 
+  mutate(sex = ifelse(sex ==1, "Male", "Female")) |> 
+  ggplot(aes(year, predicted_weight * 2.2)) + 
+  geom_point(alpha = 0.01) +
+  facet_grid(sampling_desc~sex) +
+  geom_smooth(se = FALSE, method = "lm") +
+  # geom_vline(xintercept = c(2009), lty = 2) +
+  xlab("Year") + ylab("Weight (lb)") +
+  scale_x_continuous(breaks = seq(2000, 2022, 2)) +
+  theme_light()
+ggsave(here("figs/weight-longline-keepers-unsorted-lb.png"), width = 7, height = 5)
+
 
 xx |> filter(year %in% c(2009)) |> 
   group_by(sex, sampling_desc) |> summarise(mean = mean(predicted_weight)) |> 
@@ -590,13 +605,39 @@ xx |> filter(sampling_desc == "UNSORTED", year > 2000) |>
   geom_point(alpha = 0.1, position = position_jitter(height = 0, width = 0.1)) +
   # facet_wrap(~sex_label) +
   labs(y = "Weight (kg)", x = "Year", colour = "Sex") +
-geom_hline(yintercept = o$mean_weight, lty = 2)
+geom_hline(yintercept = o$mean_weight, lty = 2) +
+  theme_light()
 ggsave(here("figs/longline-unsorted-weight.png"), width = 5, height = 3.4)
 
-xx |> filter(sampling_desc == "UNSORTED", year > 2000) |>
+xx |> filter(sampling_desc == "UNSORTED", year > 2000) |> 
+  mutate(sex_label = ifelse(sex == 1, "Male", "Female")) |> 
+  ggplot(aes(factor(year), predicted_weight*2.20462, colour = sex_label)) + 
+  geom_violin(alpha = 0.3) +
+  geom_point(alpha = 0.1, position = position_jitter(height = 0, width = 0.1)) +
+  # facet_wrap(~sex_label) +
+  labs(y = "Weight (lb)", x = "Year", colour = "Sex") +
+geom_hline(yintercept = o$mean_weight*2.20462, lty = 2) +
+  theme_light()
+ggsave(here("figs/longline-unsorted-weight-lb.png"), width = 5, height = 3.4)
+
+
+z0 <- xx |> filter(sampling_desc == "UNSORTED", year > 2000) |>
   group_by(sex) |> 
-  summarise(mean_weight = mean(predicted_weight)) |> 
-  mutate(mean_weight_lbs = mean_weight * 2.20462)
+  summarise(mean_weight_kg = mean(predicted_weight)) |> 
+  mutate(mean_weight_lb = mean_weight_kg * 2.20462) |> 
+  mutate(sex = ifelse(sex == 1, "Male", "Female"))
+
+z1 <- xx |> filter(sampling_desc == "UNSORTED", year > 2000) |>
+  # group_by(sex) |> 
+  summarise(mean_weight_kg = mean(predicted_weight)) |> 
+  mutate(mean_weight_lb = mean_weight_kg * 2.20462) |> 
+  mutate(sex = "All")
+
+bind_rows(z0, z1) |> knitr::kable(digits = 1)
+
+sink("figs/dogfish-longline-unsorted-weights.txt")
+bind_rows(z0, z1) |> knitr::kable(digits = 1)
+sink()
 
 xx |> filter(sampling_desc == "UNSORTED", year > 2000) |>
   # group_by(sex) |> 
