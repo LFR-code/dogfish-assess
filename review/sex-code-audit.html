@@ -135,7 +135,7 @@ a:focus-visible,:focus-visible{outline:2px solid var(--accent);outline-offset:2p
 <div class="verdict">
   <h2>Bottom line</h2>
   <p>The numeric sex codes are correct as used. Code&nbsp;1 is male and code&nbsp;2 is female, confirmed against the authoritative DFO data dictionary published on the Government of Canada open data portal. The composition inputs to A0 are not reversed, and the run gate in section&nbsp;11 can be lifted.</p>
-  <p>The anomaly you identified is real, but it is not a coding artifact. It is confined to the midwater trawl fleet, where it reads as size-selective availability &mdash; and that fleet&rsquo;s own compositions fit <em>worse</em>, not better, when its sexes are reversed. The separate structural concern in the first paragraph of section&nbsp;5 &mdash; whether strongly sex-specific selectivity is necessary &mdash; is unaffected by this result, and in our view is the more consequential question.</p>
+  <p>The anomaly you identified is real, but it is not a coding artifact. It is confined to the midwater trawl fleet, where it reads as size-selective availability &mdash; and that fleet&rsquo;s own compositions fit <em>worse</em>, not better, when its sexes are reversed, with essentially no spillover to any other fleet. The separate structural concern in the first paragraph of section&nbsp;5 &mdash; whether strongly sex-specific selectivity is necessary &mdash; is unaffected by this result, and in our view is the more consequential question.</p>
 </div>
 
 <h2 class="sec">What was tested</h2>
@@ -190,10 +190,10 @@ a:focus-visible,:focus-visible{outline:2px solid var(--accent);outline-offset:2p
 <caption>Negative log-likelihood by component</caption>
 <thead><tr><th>Component</th><th>A0 (as coded)</th><th>S1 (swapped)</th><th>Change</th></tr></thead>
 <tbody>
-<tr class="hl"><td>Length composition</td><td>671.1</td><td>1006.9</td><td class="up">+335.8</td></tr>
+<tr class="hl"><td>Length composition</td><td>671.1</td><td>1007.8</td><td class="up">+336.7</td></tr>
 <tr><td>Survey</td><td>922.5</td><td>871.5</td><td class="dn">&minus;51.0</td></tr>
-<tr class="hl"><td>Parameter priors</td><td>52.7</td><td>138.3</td><td class="up">+85.7</td></tr>
-<tr class="total"><td>Total</td><td>1646.4</td><td>2016.9</td><td class="up">+370.5</td></tr>
+<tr class="hl"><td>Parameter priors</td><td>52.7</td><td>134.8</td><td class="up">+82.1</td></tr>
+<tr class="total"><td>Total</td><td>1646.4</td><td>2014.1</td><td class="up">+367.7</td></tr>
 <tr><td>Depletion 2023</td><td>0.086</td><td>0.076</td><td class="dn">&mdash;</td></tr>
 </tbody></table></div>
 <p>The mechanism is visible in the aggregate composition fits. The swap requires large numbers of males at 95&ndash;105&nbsp;cm in the landings fleets, against a male asymptotic length near 84&nbsp;cm and a female value of 97.4&nbsp;cm. The model cannot reach that, so the compositions misfit and selectivity is driven hard against its priors &mdash; the contortion anticipated in section&nbsp;5, but appearing in the swapped configuration rather than the base.</p>
@@ -227,19 +227,26 @@ a:focus-visible,:focus-visible{outline:2px solid var(--accent);outline-offset:2p
 <h3><span class="n">8</span> Midwater trawl&rsquo;s own data reject the swap</h3>
 <p>The obvious follow-up is whether midwater trawl, the one fleet that shows the pattern materially, fits better when reversed. It does not. We decomposed the length-composition likelihood by fleet, and additionally fit <code>S2_mwswap</code>, in which only the 14 midwater trawl rows are exchanged and every other fleet is left as coded.</p>
 <div class="tw"><table>
-<caption>Length-composition likelihood by fleet</caption>
+<caption>Length-composition likelihood by fleet, best of 21 starts</caption>
 <thead><tr><th>Fleet</th><th>A0 (as coded)</th><th>All swapped</th><th>MW-only swapped</th></tr></thead>
 <tbody>
-<tr><td>Bottom Trawl Landings</td><td>34.5</td><td>128.1</td><td>34.9</td></tr>
-<tr><td>Bottom Trawl Discards</td><td>65.7</td><td>61.7</td><td>67.8</td></tr>
-<tr class="hl"><td>Midwater Trawl</td><td>108.1</td><td class="up">118.5</td><td class="up">119.5</td></tr>
-<tr><td>HookLine Landings</td><td>35.1</td><td>129.1</td><td>35.1</td></tr>
-<tr><td>IPHC</td><td>168.5</td><td>288.9</td><td>172.0</td></tr>
-<tr><td>SYN</td><td>259.1</td><td>280.6</td><td class="up">917.6</td></tr>
-<tr class="total"><td>Total objective</td><td>1646.4</td><td>2016.9</td><td>2309.1</td></tr>
+<tr><td>Bottom Trawl Landings</td><td>34.5</td><td>128.1</td><td>34.1</td></tr>
+<tr><td>Bottom Trawl Discards</td><td>65.7</td><td>61.7</td><td>66.6</td></tr>
+<tr class="hl"><td>Midwater Trawl</td><td>108.1</td><td class="up">118.5</td><td class="up">119.6</td></tr>
+<tr><td>HookLine Landings</td><td>35.1</td><td>128.9</td><td>34.9</td></tr>
+<tr><td>IPHC</td><td>168.5</td><td>289.0</td><td>169.8</td></tr>
+<tr><td>SYN</td><td>259.1</td><td>281.6</td><td>257.8</td></tr>
+<tr class="total"><td>Length-comp total</td><td>671.1</td><td>1007.8</td><td>682.7</td></tr>
+<tr class="total"><td>Total objective</td><td>1646.4</td><td>2014.1</td><td>1664.0</td></tr>
 </tbody></table></div>
-<p>Midwater trawl is worse under both configurations &mdash; 108.1 as coded, 118.5 when all fleets are swapped, 119.5 when it alone is swapped. The only fleet that improves anywhere is Bottom Trawl Discards, by 4.0 units under the global swap, and that is the fleet with essentially no sex difference to begin with (+1.0&nbsp;cm).</p>
-<p>The single-fleet swap is also the worst configuration overall, at 2309.1 against 1646.4 as coded. This is informative rather than incidental. The compositions are entered as joint sex&ndash;length vectors (sex code&nbsp;3), so they jointly constrain the population sex ratio and the fleets are not independent. One fleet disagreeing with five others is harder to accommodate than a uniform reversal. SYN absorbs most of the penalty (+658.5) because it has the most rows and the broadest length coverage; its selectivity is estimated independently (pattern&nbsp;24, not mirrored to midwater trawl), so the penalty propagates through the shared population rather than through shared parameters.</p>
+<p>Midwater trawl is worse under both configurations &mdash; 108.1 as coded, 118.5 when every fleet is swapped, 119.6 when it alone is swapped. Under the single-fleet swap the penalty is almost entirely confined to the fleet that was swapped: 11.5 units of a total 11.6-unit change in the length-composition likelihood, with the other five fleets moving by at most 1.3 units either way. The fleet that generated the anomaly is the fleet whose own data most directly reject reversing it.</p>
+<p>The single-fleet swap costs 17.6 units in total against A0, on identical data and an identical parameter count &mdash; a decisive preference in likelihood terms without being dramatic, and a smaller margin than the global reversal&rsquo;s 367.7.</p>
+
+<div class="verdict" style="border-left-color:var(--flag)">
+<h2>Why these are best-of-21 fits</h2>
+<p><strong>This likelihood surface is strongly multi-modal.</strong> Perturbed configurations started from the supplied control values converge, with small maximum gradient components and no parameter at a bound, to optima several hundred units worse than the same configuration started elsewhere &mdash; in one case 645 units. Every figure on this page is therefore the best of 21 starts: the supplied values, a warm start from A0&rsquo;s solution where the parameter vector permits, and 19 seeded jitters. A0 itself is robust; all 21 starts return 1646.38.</p>
+<p>The alternative modes are interpretable rather than numerical noise. At the poor SYN optimum the male apex selectivity scale falls from 0.934 to 0.446, so the model explains the same sex composition by deciding the survey barely catches males. That the data admit both readings is independent support for the section&nbsp;5 concern that sex-specific selectivity is weakly identified &mdash; and it means no section&nbsp;10 diagnostic can be read from a single fit.</p>
+</div>
 
 <h2 class="sec">What the anomaly actually is</h2>
 <p>Female dogfish span roughly 40 to 120+&nbsp;cm. Males compress into a narrow adult band near 70&ndash;90&nbsp;cm. In gear that catches predominantly juveniles the female mode therefore sits <em>below</em> the male mode while the female tail still extends far above it. Midwater trawl is the clear case: female mode near 58&nbsp;cm against a male mode near 78&nbsp;cm, with female maximum 116&nbsp;cm against male 110&nbsp;cm. This is size structure and availability &mdash; the branch anticipated in your section&nbsp;12.</p>

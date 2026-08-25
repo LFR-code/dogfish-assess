@@ -32,10 +32,31 @@ fit worse when its sexes are reversed.
    is smaller. A reversal would flip the whole distribution.
 5. Maturity staging: sex 1 is one code (90); sex 2 carries the female
    gestation and uterus-condition ladder.
-6. Refitting with sexes swapped costs 370.5 total likelihood units.
+6. Refitting with sexes swapped costs 367.7 total likelihood units
+   (best of 21 starts each; see the multi-modality note below).
 7. The direction of the sex-length difference is inconsistent across
    fleets, which no source-system dictionary error can produce.
-8. Midwater trawl alone, swapped alone, fits worse than as coded.
+8. Midwater trawl swapped alone fits worse by 11.5 units in its own
+   compositions, with almost no spillover to other fleets.
+
+## Investigation 2: Cox's Section 10 diagnostics (in progress)
+
+Configurations `D1_commonsel`, `D2_nodiscardlen`, `D3_recdev` built and
+fit. See `coverage-vs-report.md` for status.
+
+**Blocking finding: the likelihood surface is multi-modal.** Perturbed
+configurations started from the supplied control values converge, with
+small gradients and no parameters at bounds, to optima hundreds of
+likelihood units worse than the same configuration started elsewhere.
+A0 itself is fine -- 21 starts all return 1646.38 -- but every perturbed
+configuration must be multi-started before its likelihood can be compared
+with any other. `03-jitter.R` and `04-multistart-run.R` implement this.
+
+The alternative modes are interpretable: at the poor SYN optimum the male
+apex selectivity scale falls from 0.934 to 0.446, so the model explains
+the same sex composition by deciding the survey barely catches males.
+That the data admit both explanations is itself evidence that the
+sex-specific selectivity structure is weakly identified.
 
 ## Files
 
@@ -47,6 +68,11 @@ fit worse when its sexes are reversed.
 | `data-request-midwater-trawl.md` | Request for commercial MW trawl samples |
 | `sex-code-audit.html` | Published page version, figures embedded |
 | `figs/` | Figures and numeric summaries |
+| `03-jitter.R` | Reproducible multi-start harness |
+| `04-multistart-run.R` | Multi-starts every configuration |
+| `fleet-structure-map.md` | Fleet, selectivity, mirroring, multipliers |
+| `email-request-authors.md` | Draft request to the assessment authors |
+| `coverage-vs-report.md` | Status against the review report |
 
 The `.docx` files are rendered with
 `pandoc -f markdown -t docx FILE.md -o FILE.docx`. The `.html` page was

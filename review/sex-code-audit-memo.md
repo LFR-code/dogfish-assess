@@ -97,11 +97,13 @@ the file changed, and refit with the Hessian:
 
 | component | A0 (as coded) | S1 (sexes swapped) | change |
 |---|---|---|---|
-| Length composition | 671.1 | 1006.9 | **+335.8** |
+| Length composition | 671.1 | 1007.8 | **+336.7** |
 | Survey | 922.5 | 871.5 | -51.0 |
-| Parameter priors | 52.7 | 138.3 | **+85.7** |
-| **Total** | **1646.4** | **2016.9** | **+370.5** |
+| Parameter priors | 52.7 | 134.8 | **+82.1** |
+| **Total** | **1646.4** | **2014.1** | **+367.7** |
 | Depletion 2023 | 0.086 | 0.076 | |
+
+Both fits are the best of 21 starts; see section 8 on why that matters.
 
 The mechanism is visible in the aggregate composition fits
 (`review/figs/02-sexswap-comp-fits.png`). The swap requires large numbers
@@ -145,32 +147,39 @@ decomposed the length-composition likelihood by fleet, and additionally
 fit `S2_mwswap`, in which only the 14 midwater trawl rows are exchanged
 and every other fleet is left as coded.
 
+Establishing this took more care than we first applied, for a reason that
+matters beyond this question. **The likelihood surface is strongly
+multi-modal.** Perturbed configurations started from the supplied control
+values converge, with small maximum gradient components and no parameter
+at a bound, to optima several hundred likelihood units worse than the
+same configuration started elsewhere. Every figure below is therefore the
+best of 21 starts: the supplied values, a warm start from A0's solution
+where the parameter vector permits, and 19 seeded jitters. A0 itself is
+robust -- all 21 starts return 1646.38.
+
 | fleet | A0 | all swapped | MW-only swapped |
 |---|---|---|---|
-| Bottom Trawl Landings | 34.5 | 128.1 | 34.9 |
-| Bottom Trawl Discards | 65.7 | 61.7 | 67.8 |
-| **Midwater Trawl** | **108.1** | **118.5** | **119.5** |
-| HookLine Landings | 35.1 | 129.1 | 35.1 |
-| IPHC | 168.5 | 288.9 | 172.0 |
-| SYN | 259.1 | 280.6 | 917.6 |
-| **Total objective** | **1646.4** | **2016.9** | **2309.1** |
+| Bottom Trawl Landings | 34.5 | 128.1 | 34.1 |
+| Bottom Trawl Discards | 65.7 | 61.7 | 66.6 |
+| **Midwater Trawl** | **108.1** | **118.5** | **119.6** |
+| HookLine Landings | 35.1 | 128.9 | 34.9 |
+| IPHC | 168.5 | 289.0 | 169.8 |
+| SYN | 259.1 | 281.6 | 257.8 |
+| **Length-comp total** | **671.1** | **1007.8** | **682.7** |
+| **Total objective** | **1646.4** | **2014.1** | **1664.0** |
 
 Midwater trawl is worse under both configurations: 108.1 as coded, 118.5
-when all fleets are swapped, 119.5 when it alone is swapped. The only
-fleet that improves anywhere is Bottom Trawl Discards, by 4.0 units under
-the global swap, and that is the fleet with essentially no sex difference
-to begin with (+1.0 cm).
+when every fleet is swapped, 119.6 when it alone is swapped. Under the
+single-fleet swap the penalty is almost entirely confined to the fleet
+that was swapped -- 11.5 units of a total 11.6-unit change in the
+length-composition likelihood -- and the other five fleets move by at
+most 1.3 units either way. The fleet that generated the anomaly is the
+fleet whose own data most directly reject reversing it.
 
-The single-fleet swap is also the worst configuration overall, at 2309.1
-against 1646.4 as coded. This is informative rather than incidental. The
-compositions are entered as joint sex-length vectors (sex code 3), so they
-jointly constrain the population sex ratio and the fleets are not
-independent. One fleet disagreeing with five others is harder to
-accommodate than a uniform reversal. SYN absorbs most of the penalty
-(+658.5) because it has the most rows and the broadest length coverage;
-its selectivity is estimated independently (pattern 24, not mirrored to
-midwater trawl), so the penalty propagates through the shared population
-rather than through shared parameters.
+The single-fleet swap costs 17.6 units in total against A0, on identical
+data and an identical parameter count. That is a decisive preference in
+likelihood terms without being dramatic, and it is a smaller margin than
+the global reversal's 367.7.
 
 ## What the anomaly actually is
 
@@ -188,6 +197,19 @@ investigate spatial availability, sampling, and fleet behaviour").
 - The S.11 run gate can be lifted. Compositions do not need rebuilding.
 - The S.15 request for the authoritative sex-code dictionary is closed;
   the source is cited in section 1 above and is publicly available.
+- **New, and relevant to the S.10 programme: this surface is
+  multi-modal.** Single-start fits of perturbed configurations landed up
+  to 645 likelihood units above the best optimum we could find for the
+  same configuration, converging cleanly each time. No diagnostic in
+  S.10 can be interpreted from a single fit, and we would want to know
+  whether the published sensitivities were multi-started before their
+  likelihoods are compared with one another or combined in an ensemble.
+  The alternative modes are interpretable rather than numerical noise: at
+  the poor SYN optimum the male apex selectivity scale falls from 0.934 to
+  0.446, so the model explains the same sex composition by deciding the
+  survey barely catches males. That the data admit both readings is
+  independent support for your S.5 concern that sex-specific selectivity
+  is weakly identified.
 - The S.5 structural question -- whether common gear selectivity-at-length
   across sexes is the better rebuilding baseline -- is untouched by this
   result. We note that in A0 male selectivity in both Bottom Trawl
