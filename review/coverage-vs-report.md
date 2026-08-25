@@ -50,16 +50,37 @@ Baseline validation in the S.12 sense remains open.
 
 | Diagnostic | Status |
 |---|---|
-| A0 verification | Partial -- see above |
-| Common sex selectivity | Not started |
-| Mortality structure (M-at-length, phi0) | Not started |
-| Recruitment process | Not started |
-| Old-age biology | Not started |
-| Discard lengths | Not started |
-| Trawl removals | Not started |
+| A0 verification | Partial -- blocked on the authors' outputs |
+| Common sex selectivity | **Run** (`D1_commonsel`) |
+| Mortality structure (M-at-length, phi0) | Deferred (Lorenzen build pending) |
+| Recruitment process | **Run** (`D3_recdev`, `D3b_recdev_window`) |
+| Old-age biology | Deferred, needs the baseline |
+| Discard lengths | **Run** (`D2_nodiscardlen`) |
+| Trawl removals | Deferred, needs the baseline |
 
-Roughly half of one diagnostic out of seven. The run gate that blocked
-this programme is now clear, so it is available to start.
+Three of seven run, two deferred by the sequencing decision, one blocked
+on the authors, one pending.
+
+### A finding that conditions all of them
+
+**The likelihood surface is strongly multi-modal.** Configurations
+started from the supplied control values converge cleanly -- small
+gradients, no parameters at bounds -- to optima up to 645 units worse
+than the same configuration started elsewhere:
+
+| Configuration | Supplied start | Best of 21 | Penalty |
+|---|---|---|---|
+| A0 | 1646.38 | 1646.38 | 0 |
+| D1_commonsel | 1852.16 | 1852.16 | 0 |
+| S1_sexswap | 2016.86 | 2014.13 | 2.7 |
+| D3_recdev | 2147.14 | 1513.81 | 633.3 |
+| D2_nodiscardlen | 2071.55 | 1434.23 | 637.3 |
+| S2_mwswap | 2309.14 | 1664.04 | 645.1 |
+
+A0 is robust, so the authors' initial values are well tuned for the base
+configuration. But no diagnostic can be read from a single fit, and it is
+an open question whether the 20 published sensitivities are each at their
+own optimum. `05-multistart-sensitivities.R` is written to test that.
 
 We recommend **common sex selectivity** first. In A0, male selectivity in
 both Bottom Trawl Landings and HookLine Landings is effectively zero --
@@ -71,20 +92,22 @@ it is the diagnostic whose result most changes rebuilding advice.
 
 | Task | Status |
 |---|---|
-| Map fleet selectivity, male offsets, mirroring, catch multipliers | Partial |
+| Map fleet selectivity, male offsets, mirroring, catch multipliers | **Done** |
 | Compare every sensitivity input against A0 | Not started |
 | Sex-specific means and quantiles from A0 | **Done** |
 | Inspect code for numeric-to-character sex conversions | Partial |
 | Search locally for a compatible SS3 executable | **Done** |
 
-On the partials. Selectivity patterns and mirroring are established --
-fleets 1, 2, 3, 4, 6, 8 use pattern 24 with male offsets; fleets 5, 9,
-10, 12 mirror fleet 2, fleet 7 mirrors 6, fleet 11 mirrors 8 -- and
-selectivity-at-length by sex is plotted for all twelve fleets. Catch
-multipliers have not been examined and no written map exists yet. On sex
-conversions, we traced the two in the construction script (line 279,
-IPHC characters; line 323, numeric survey and commercial codes) but have
-not swept the plotting code in `03-outside-ss3-figures.R`.
+The fleet map is written up in `fleet-structure-map.md`: fleet
+definitions, selectivity patterns and mirroring, catchability, catch
+multipliers, and how discard mortality reaches the model by two different
+routes. One structural point from it bears on the diagnostics -- fleet 2,
+Bottom_Trawl_Discards, drives the selectivity of four other fleets, so
+its length compositions are load-bearing far beyond the discard fishery.
+
+On sex conversions, we traced the two in the construction script (line
+279, IPHC characters; line 323, numeric survey and commercial codes) but
+have not swept the plotting code in `03-outside-ss3-figures.R`.
 
 ## Files still required (report S.15)
 
