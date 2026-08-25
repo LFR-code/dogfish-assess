@@ -4,25 +4,35 @@
 **From:** S.D.N. Johnson, Landmark Fisheries Research
 **Date:** 25 August 2026
 **Re:** Outside Pacific Spiny Dogfish -- bounded diagnostic programme,
-first three diagnostics, and a methodological problem that conditions
+first four diagnostics, and a methodological problem that conditions
 all of them
 
 ---
 
 ## Summary
 
-Three of your seven S.10 diagnostics are run. Before any of them: this
-likelihood surface is strongly multi-modal, and single-start fits of
-perturbed configurations are not trustworthy. Everything below is the
-best of 21 starts.
+Four of your seven S.10 diagnostics are run. Before any of them: this
+likelihood surface is strongly multi-modal, single-start fits of
+perturbed configurations are not trustworthy, and the source of the
+problem turns out to be the sex-specific selectivity structure you
+flagged in S.5. Everything below is best-of-N.
 
-The headline result is that **A0's depletion estimate is not robust to
-allowing recruitment variation**. Estimated 2023 depletion moves from
-0.086 to 0.185 when recruitment deviations are switched on, and the fit
-to *both* data components improves substantially. That is close to what
-your B-series counterparts produce by a different route (B1 0.172, B4
-0.179), so two independent relaxations of A0's deterministic structure
-land in the same place.
+Two substantive results.
+
+**A0's depletion is not robust to relaxing its deterministic structure.**
+Estimated 2023 depletion moves from 0.086 to 0.185 when recruitment
+deviations are switched on, and the fit to *both* data components
+improves. Your B-series counterparts reach 0.172 and 0.179 by relaxing
+constant M instead. Three independent relaxations land near twice the
+base depletion.
+
+**Constant M is a worse-fitting assumption than a standard alternative
+at identical cost.** Lorenzen M, with the same 46 estimated parameters,
+fits better on both data components than A0 does.
+
+Neither disturbs the low-abundance conclusion, which is robust across
+everything we have run. What moves is the reconstructed unfished scale,
+and therefore the removal advice.
 
 ## 0. The surface is multi-modal
 
@@ -173,6 +183,36 @@ evidence of deterministic pup survival.
 A variant restricting the deviation window to 1970-2015, where the data
 can actually inform it, is built and queued.
 
+## 4. Mortality structure (S.10 row 3)
+
+`D4_lorenzenM` switches `natM_type` from 0 to 2 with a reference age of
+40, matching `Growth_Age_for_L2`. The supplied fixed M of 0.065 becomes M
+*at that age*, so only the shape changes and the parameter count is
+unchanged. Syntax is from the v3.30.22.1 manual, which specifies one
+additional integer line for the reference age under option 2.
+
+| | A0 | D4_lorenzenM |
+|---|---|---|
+| Estimated parameters | 46 | 46 |
+| Total objective | 1646.4 | **1567.8** |
+| Survey | 922.5 | **877.6** |
+| Length composition | 671.1 | **637.3** |
+| Unfished spawning output | 39,194 | 40,286 |
+| Depletion 2023 | 0.086 | 0.097 |
+
+Resulting female M-at-age: 0.184 at age 0, 0.097 at age 10, 0.069 at age
+30, 0.065 at the reference age 40, and 0.061 at age 70.
+
+At identical parameter count, Lorenzen fits better on both data
+components by 78.6 units combined. There is no parsimony argument for
+constant M here -- it is simply the worse of the two.
+
+Per the agreed sequencing we are holding the phi0, S0 and
+reference-point consequences until the baseline is validated against the
+authors' outputs, since those are absolute rather than relative
+quantities. This configuration is still being multi-started, so the
+numbers above are provisional.
+
 ## What this adds up to
 
 A0's depletion of about 0.09 is conditional on two structural
@@ -189,7 +229,6 @@ drew in your fourth immediate priority.
 
 ## Still open
 
-- Lorenzen M (S.10 row 3), build pending.
 - Old-age biology and trawl removals (rows 5, 7), deferred until the
   baseline is validated against the authors' outputs.
 - A0 verification proper (row 1), blocked on those outputs. See the
