@@ -52,14 +52,15 @@ Baseline validation in the S.12 sense remains open.
 |---|---|
 | A0 verification | Partial -- blocked on the authors' outputs |
 | Common sex selectivity | **Run** (`D1_commonsel`) |
-| Mortality structure (M-at-length, phi0) | Deferred (Lorenzen build pending) |
+| Mortality structure (M-at-length, phi0) | **Run** (`D4_lorenzenM`) |
 | Recruitment process | **Run** (`D3_recdev`, `D3b_recdev_window`) |
 | Old-age biology | Deferred, needs the baseline |
 | Discard lengths | **Run** (`D2_nodiscardlen`) |
 | Trawl removals | Deferred, needs the baseline |
 
-Three of seven run, two deferred by the sequencing decision, one blocked
-on the authors, one pending.
+Four of seven run. Two are deferred by the sequencing decision (old-age
+biology, trawl removals), and A0 verification is blocked on the authors'
+outputs.
 
 ### A finding that conditions all of them
 

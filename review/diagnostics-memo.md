@@ -39,17 +39,36 @@ optima far from the best we can find for the same configuration.
 | D2_nodiscardlen | 2071.55 | 1434.23 | 637.3 |
 | S2_mwswap | 2309.14 | 1664.04 | 645.1 |
 
-A0 is robust, so the supplied initial values are well tuned for the base
-configuration. Nothing else can be assumed to be. The alternative modes
-are interpretable rather than numerical noise: at the poor SYN optimum
-the male apex selectivity scale falls from 0.934 to 0.446, so the model
-explains the same sex composition by deciding the survey barely catches
-males. That the data admit both readings supports your S.5 concern that
-sex-specific selectivity is weakly identified.
+A0 reaches its best optimum from the supplied values, so those are well
+tuned. But its basin is narrow. Counting how often 21 jittered starts
+reach the best optimum found for each configuration:
 
-We are currently multi-starting all 21 published configurations to see
-whether any of them sits at a poor optimum. The first two checked, A0 and
-A1, are both clean.
+| Configuration | Starts reaching best | Rate | Worst start |
+|---|---|---|---|
+| A0 | 6 of 21 | 29% | 5000 |
+| S1_sexswap | 1 of 21 | 5% | 5451 |
+| S2_mwswap | 4 of 21 | 19% | 5535 |
+| **D1_commonsel** | **20 of 21** | **95%** | **1854** |
+| D2_nodiscardlen | 6 of 21 | 29% | 3391 |
+| D3_recdev | 1 of 21 | 5% | 3466 |
+
+**The one configuration that optimises reliably is the one with
+sex-specific selectivity switched off.** D1 fixes the 24 male-offset
+parameters and converges to within 2 units from 20 of 21 starts. Every
+configuration that retains those offsets finds its best optimum between 5
+and 29% of the time, with worst starts three times the best value.
+
+The alternative modes are interpretable rather than numerical noise, and
+they are consistently in the same parameters: at the poor SYN optimum the
+male apex selectivity scale falls from 0.934 to 0.446, so the model
+explains the same sex composition by deciding the survey barely catches
+males.
+
+This is an independent line of evidence for your S.5 concern. The
+sex-specific selectivity structure is not merely flexible enough to admit
+several explanations of the same data -- it is flexible enough to make
+the likelihood surface pathological, and it is the specific source of
+that pathology in this model.
 
 ## 1. Common sex selectivity (S.10 row 2)
 
@@ -79,9 +98,18 @@ inflating female F -- removing it makes F higher, not lower -- but it is
 carrying about 25% of the estimated stock scale, which is the part that
 matters for rebuilding. Answering your question directly: the curves are
 necessary in the statistical sense, and the parsimonious baseline you
-proposed is not supported by these data. Whether the curves represent
-gear behaviour or absorbed availability is not resolved by a fit test,
-and the multi-modality above is a reason to keep that question open.
+proposed is not supported by these data on fit alone.
+
+That said, the two results are in tension and the tension is the point.
+The data prefer sex-specific curves by a wide margin, and those same
+curves are what make the model unreliable to fit -- D1 is the only
+configuration we have that optimises dependably. A structure that
+improves fit by 206 units while turning a well-behaved optimisation
+problem into one that finds its own optimum 29% of the time is not
+obviously the right structure for a rebuilding baseline, whatever the
+likelihood ratio says. Whether those curves represent gear behaviour or
+absorbed availability is not resolved by a fit test, and we would want
+the profile and the retrospective before recommending either way.
 
 ## 2. Discard length compositions (S.10 row 6)
 
