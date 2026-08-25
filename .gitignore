@@ -73,3 +73,16 @@ analysis/02a-catch-data-unit-trawl.R
 *.b05
 *.p05
 *.r05
+
+# SS3 executable: pinned by version + SHA-256 in ss3/bin/get-ss3.sh and
+# fetched on demand, so the platform-specific binary itself is not tracked.
+ss3/bin/ss3_opt
+ss3/bin/ss3_opt.exe
+.DS_Store
+
+# Review deliverables are tracked: the repo-wide *.png/*.csv/*.docx rules
+# exist to keep regenerated assessment figures out, but the review outputs
+# are the record of what was analysed and sent.
+!review/figs/*.png
+!review/figs/*.csv
+!review/*.docx
