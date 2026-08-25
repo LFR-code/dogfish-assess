@@ -78,10 +78,18 @@ than the same configuration started elsewhere:
 | D2_nodiscardlen | 2071.55 | 1434.23 | 637.3 |
 | S2_mwswap | 2309.14 | 1664.04 | 645.1 |
 
-A0 is robust, so the authors' initial values are well tuned for the base
-configuration. But no diagnostic can be read from a single fit, and it is
-an open question whether the 20 published sensitivities are each at their
-own optimum. `05-multistart-sensitivities.R` is written to test that.
+The source is identifiable: D1, the configuration with the 24
+sex-specific selectivity offsets fixed, reaches its optimum from 20 of 21
+starts. Every configuration retaining those offsets manages 5-29%.
+
+All 21 published configurations were then multi-started. **Eleven sit
+more than 10 units above a better optimum**, three by roughly 650, and
+the penalty is almost entirely in the length compositions each time.
+Estimated status is nearly untouched: the largest change in 2023
+depletion is 0.022 and most are 0.000. So the Research Document's status
+conclusions are robust, while its composition fits, residual diagnostics
+and any likelihood-based model weighting are not. Full table in
+`diagnostics-memo.md` section 5 and `figs/08-sensitivity-multistart.csv`.
 
 We recommend **common sex selectivity** first. In A0, male selectivity in
 both Bottom Trawl Landings and HookLine Landings is effectively zero --

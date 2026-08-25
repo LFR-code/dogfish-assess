@@ -1,0 +1,5 @@
+"model","Bottom_Trawl_Landings","Bottom_Trawl_Discards","MidwaterTrawl","HookLine_Landings","HookLine_Discards","IPHC","HBLL","SYN","iRec","Salmon_Bycatch"
+"A0",0.0049,0.0107,0.0125,0,0.0055,0,0,0,1e-04,0
+"D1_commonsel",0.0052,0.0102,0.012,0,0.0049,0,0,0,1e-04,0
+"D2_nodiscardlen",0.0053,0.0838,0.0101,0,0.0103,0,0,0,1e-04,0
+"D3_recdev",0.0024,0.0072,0.009,0,0.0035,0,0,0,0,0

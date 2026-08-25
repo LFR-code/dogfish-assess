@@ -22,13 +22,15 @@ Two substantive results.
 **A0's depletion is not robust to relaxing its deterministic structure.**
 Estimated 2023 depletion moves from 0.086 to 0.185 when recruitment
 deviations are switched on, and the fit to *both* data components
-improves. Your B-series counterparts reach 0.172 and 0.179 by relaxing
-constant M instead. Three independent relaxations land near twice the
+improves. Your B-series counterparts, refit at their own best optima,
+reach 0.157 to 0.172 by relaxing constant M instead. Independent
+relaxations of A0's deterministic structure land at roughly twice the
 base depletion.
 
 **Constant M is a worse-fitting assumption than a standard alternative
 at identical cost.** Lorenzen M, with the same 46 estimated parameters,
-fits better on both data components than A0 does.
+fits better on both data components than A0 does -- while leaving the
+status answer unchanged.
 
 Neither disturbs the low-abundance conclusion, which is robust across
 everything we have run. What moves is the reconstructed unfished scale,
@@ -210,24 +212,71 @@ additional integer line for the reference age under option 2.
 | | A0 | D4_lorenzenM |
 |---|---|---|
 | Estimated parameters | 46 | 46 |
-| Total objective | 1646.4 | **1567.8** |
-| Survey | 922.5 | **877.6** |
-| Length composition | 671.1 | **637.3** |
-| Unfished spawning output | 39,194 | 40,286 |
-| Depletion 2023 | 0.086 | 0.097 |
+| Total objective | 1646.4 | **1562.2** |
+| Survey | 922.5 | **876.6** |
+| Length composition | 671.1 | **634.3** |
+| Unfished spawning output | 39,194 | 43,805 |
+| Depletion 2023 | 0.086 | 0.089 |
 
 Resulting female M-at-age: 0.184 at age 0, 0.097 at age 10, 0.069 at age
 30, 0.065 at the reference age 40, and 0.061 at age 70.
 
 At identical parameter count, Lorenzen fits better on both data
-components by 78.6 units combined. There is no parsimony argument for
+components by 84.2 units combined. There is no parsimony argument for
 constant M here -- it is simply the worse of the two.
+
+Note what it does *not* do: depletion is essentially unchanged, 0.089
+against 0.086. So this is a case where the fit improves substantially and
+the status answer does not move at all, which is the same pattern we find
+throughout the published sensitivities below.
 
 Per the agreed sequencing we are holding the phi0, S0 and
 reference-point consequences until the baseline is validated against the
 authors' outputs, since those are absolute rather than relative
-quantities. This configuration is still being multi-started, so the
-numbers above are provisional.
+quantities.
+
+## 5. The published configurations, multi-started
+
+We multi-started all 21 published A- and B-series configurations, 11
+starts each, to see whether the optimisation problem above affects the
+assessment's own models. **Eleven of the 21 sit more than 10 likelihood
+units above a better optimum**, three of them by roughly 650.
+
+| Configuration | Published | Best | Penalty | Len comp | d depl |
+|---|---|---|---|---|---|
+| B2_2010step | 1823.1 | 1173.1 | 650.0 | 1194.0 -> 537.9 | -0.003 |
+| B4_1990inc_lowM | 1897.8 | 1254.6 | 643.2 | 1220.4 -> 565.4 | -0.022 |
+| A13_extraSD | 1728.5 | 1085.6 | 642.9 | 1304.4 -> 641.3 | 0.000 |
+| B5_2010step_lowM | 1326.6 | 1176.9 | 149.7 | 692.9 -> 539.4 | -0.001 |
+| B3_2005step | 1384.5 | 1236.3 | 148.2 | 704.0 -> 551.6 | -0.006 |
+| A5_highdiscard | 1757.1 | 1610.9 | 146.2 | 816.5 -> 660.0 | 0.000 |
+| A11_low_zfrac | 1738.5 | 1593.5 | 144.9 | 801.4 -> 645.7 | 0.001 |
+| A4_USgrowth_highmat | 1679.6 | 1577.8 | 101.8 | 635.4 -> 708.4 | 0.006 |
+| A9_lowM | 1686.2 | 1663.8 | 22.3 | 694.8 -> 679.0 | -0.001 |
+| A10_highM | 1640.7 | 1626.7 | 14.0 | 666.2 -> 663.2 | -0.001 |
+| A15_100discard | 1530.2 | 1516.8 | 13.4 | 633.6 -> 629.1 | 0.001 |
+
+A0, A1, A2, A3, A8, B1 and four others show no material penalty.
+
+**Two things follow, and they point in opposite directions.**
+
+The penalty is almost entirely in the length compositions, every time.
+B2's composition likelihood more than halves, from 1194.0 to 537.9;
+A13's falls from 1304.4 to 641.3. Several published configurations are
+therefore reported with composition fits roughly twice as poor as the
+same configuration can achieve. Any composition-fit diagnostic, residual
+plot, or likelihood-based comparison or weighting drawn from those runs
+is affected.
+
+But **estimated status is almost untouched**. Across all 21
+configurations the largest change in 2023 depletion between the published
+start and the best optimum is 0.022, and most are 0.000. The stock status
+conclusions in the Research Document are robust to this.
+
+That is the fair reading, and we would not want it reported as anything
+stronger. It is a model-selection and diagnostics problem, not a status
+problem. It matters because your S.10 programme, and any ensemble that
+weights models by fit, both depend on the part that is unreliable.
 
 ## What this adds up to
 
