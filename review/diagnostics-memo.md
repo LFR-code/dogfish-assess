@@ -180,8 +180,24 @@ component and doubles estimated depletion. This is the concrete form of
 your S.4 point that failure to estimate recruitment deviations is not
 evidence of deterministic pup survival.
 
-A variant restricting the deviation window to 1970-2015, where the data
-can actually inform it, is built and queued.
+**The result survives the obvious objection.** `D3b_recdev_window`
+restricts the deviations to 1970-2015, dropping the unidentified
+pre-1977 block and the terminal years that cannot yet be observed. It
+uses 46 deviations instead of 63 and reaches a total of 1520.2 against
+D3's 1513.8 -- essentially the same fit for 17 fewer parameters:
+
+| | A0 | D3 (1960-2022) | D3b (1970-2015) |
+|---|---|---|---|
+| Survey | 922.5 | 768.3 | 772.5 |
+| Length composition | 671.1 | 643.9 | 650.0 |
+| Recruitment penalty | 0.0 | 51.3 | 45.9 |
+| Deviations estimated | 0 | 63 | 46 |
+| Depletion 2023 | 0.086 | 0.185 | **0.175** |
+
+Both windows give a deviation standard deviation well above the assumed
+sigmaR of 0.4 (0.515 and 0.571), and both roughly double estimated
+depletion. The conclusion does not rest on the deviations that the data
+cannot inform.
 
 ## 4. Mortality structure (S.10 row 3)
 
