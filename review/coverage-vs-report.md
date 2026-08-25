@@ -1,0 +1,114 @@
+# Coverage against Interim Review Report 1
+
+Status as of 25 August 2026. Honest accounting: one of four immediate
+priorities is substantially complete, the other three are untouched.
+
+## Immediate priorities (report, executive summary)
+
+| # | Priority | Status |
+|---|---|---|
+| 1 | Obtain missing outputs, executable, raw sex data | **Mostly done** |
+| 2 | Run bounded SS3 diagnostics after A0 verification | Not started |
+| 3 | Complete comparison reviews | Not started |
+| 4 | Separate status evidence from removal advice | Not started |
+
+### Priority 1, in detail
+
+- **Raw sex-specific data** -- resolved. Both files were present in the
+  repository we hold, and the authoritative code dictionary is public.
+- **Audit of Figures 7 and 9** -- resolved in substance. Sex-specific
+  means and quantiles computed by fleet directly from A0 inputs. The
+  figures themselves were not regenerated; the numbers behind them were.
+- **Executable** -- partially resolved, and this matters. We fetched the
+  official v3.30.22.1 release and pinned it by SHA-256. That is *not* the
+  same as the authors' build. The report correctly noted inconsistent
+  version documentation, and we can confirm it: `Notes.md` names
+  3.30.21.1 while linking 3.30.22.1, the fitting script names 3.30.22.1,
+  and the release binary self-reports `3.30.22.beta: not an official
+  version of SS`. The authors' exact binary is still required.
+- **Final fitted outputs** -- still missing. No `Report.sso`, `ss.par`,
+  covariance files, profiles, retrospectives, or MCMC output from the
+  authors.
+
+### A note on what "reproduction" currently means
+
+Report S.12 instructs: search locally for a compatible executable, *but
+do not claim baseline reproduction without the authors' final version and
+outputs*. We are respecting that. What we can say is narrower than
+reproduction:
+
+- All 21 A- and B-series configurations converge, gradients 1e-8 to
+  1.6e-3, Hessian obtained.
+- A0 returns depletion 0.086 (SD 0.005), consistent with the published
+  0.09 and CI 0.08-0.09 in `values/ref-pts.tex`.
+
+We have **not** matched the authors' likelihood, parameter vector,
+warnings, or gradients, because those files do not exist on our side.
+Baseline validation in the S.12 sense remains open.
+
+## Bounded diagnostic programme (report S.10)
+
+| Diagnostic | Status |
+|---|---|
+| A0 verification | Partial -- see above |
+| Common sex selectivity | Not started |
+| Mortality structure (M-at-length, phi0) | Not started |
+| Recruitment process | Not started |
+| Old-age biology | Not started |
+| Discard lengths | Not started |
+| Trawl removals | Not started |
+
+Roughly half of one diagnostic out of seven. The run gate that blocked
+this programme is now clear, so it is available to start.
+
+We recommend **common sex selectivity** first. In A0, male selectivity in
+both Bottom Trawl Landings and HookLine Landings is effectively zero --
+the model attributes landed catch almost entirely to females. That is a
+strong structural claim, it drives female fishing mortality directly, and
+it is the diagnostic whose result most changes rebuilding advice.
+
+## Work while the request is pending (report S.12)
+
+| Task | Status |
+|---|---|
+| Map fleet selectivity, male offsets, mirroring, catch multipliers | Partial |
+| Compare every sensitivity input against A0 | Not started |
+| Sex-specific means and quantiles from A0 | **Done** |
+| Inspect code for numeric-to-character sex conversions | Partial |
+| Search locally for a compatible SS3 executable | **Done** |
+
+On the partials. Selectivity patterns and mirroring are established --
+fleets 1, 2, 3, 4, 6, 8 use pattern 24 with male offsets; fleets 5, 9,
+10, 12 mirror fleet 2, fleet 7 mirrors 6, fleet 11 mirrors 8 -- and
+selectivity-at-length by sex is plotted for all twelve fleets. Catch
+multipliers have not been examined and no written map exists yet. On sex
+conversions, we traced the two in the construction script (line 279,
+IPHC characters; line 323, numeric survey and commercial codes) but have
+not swept the plotting code in `03-outside-ss3-figures.R`.
+
+## Files still required (report S.15)
+
+| Item | Status |
+|---|---|
+| Exact final executable and fitted output directories | Still required |
+| Sex-specific composition records and code dictionary | **Resolved** |
+| Raw survey and commercial sample files | In hand |
+| Joint age-length-maturity-reproductive data with provenance | Partial |
+| Northwest Atlantic technical research document | Not obtained |
+| Fleet documentation: discard sampling, retention, mortality | Not obtained |
+
+Midwater trawl commercial biological records are the subject of a
+separate outstanding request (`data-request-midwater-trawl.md`).
+
+## Work completed outside the report's scope
+
+- The R environment is pinned in `renv.lock` (230 packages, dated CRAN
+  snapshot, GitHub packages pinned by commit), and the SS3 binary is
+  pinned by version and checksum with a fetch script. Neither existed
+  before; both are prerequisites for any claim of reproduction.
+- `fit_ss3()` was hardcoded to another user's machine and could not run
+  as supplied. Now resolves a repository-local binary.
+- **A8 (HBLL only) is degenerate**: depletion 0.997, standard deviation
+  0.000, unfished spawning output 1.08e7. It appears to carry no scale
+  information. This is not raised in the report and should be checked
+  before A8 is given any weight in an ensemble.
