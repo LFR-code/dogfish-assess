@@ -229,9 +229,10 @@ reconstructed:
   gradient 1e-8 to 1.6e-3.
 - A0 reproduces the published base depletion: 0.086 with standard
   deviation 0.005, against `\BaseDepl` 0.09 and CI 0.08-0.09.
-- Note that A8 (HBLL only) returns depletion 0.997 with zero standard
-  deviation and an unfished spawning output of 1.08e7. It appears to carry
-  no scale information and should not be given weight in an ensemble.
+- A8 (HBLL only) returns depletion 0.997 with zero standard deviation
+  and an unfished spawning output of 1.08e7. This matches the authors'
+  own account -- Res. Doc. section 3.3.1 records unresolvable convergence
+  issues and excludes A8 -- so it is corroboration, not a new issue.
 - The R environment is pinned in an `renv.lock` (230 packages, dated CRAN
   snapshot, GitHub packages pinned by commit).
 

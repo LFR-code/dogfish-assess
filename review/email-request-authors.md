@@ -1,10 +1,9 @@
-# Draft email: data and output request to the assessment authors
+# Draft email: request to the assessment authors
 
 **From:** S.D.N. Johnson (Landmark Fisheries Research)
 **Cc:** S. Cox
-**To:** Assessment authors, Outside Pacific Spiny Dogfish
-**Subject:** Dogfish assessment review -- request for model outputs and
-executable
+**To:** S.C. Anderson, Q.C. Huynh, L.N.K. Davidson, J.R. King
+**Subject:** Dogfish assessment review -- request for model outputs
 
 ---
 
@@ -15,93 +14,106 @@ Pacific Spiny Dogfish assessment (Res. Doc. 2025/055) in support of
 rebuilding planning. We have the `dogfish-assess` repository and have
 refit all 21 A- and B-series configurations from the supplied inputs.
 
-Before we go further we need a small number of items that are not in the
-repository. I have grouped them by why we need them rather than by file
-type, since a couple of the questions may be quicker to answer than to
-assemble.
+We have worked through the Research Document, so this is a short list.
+Most of what we initially wanted is documented there.
 
-## 1. The executable, and how convergence was established
+## 1. The build
 
-Which SS3 binary produced the published results -- exact version,
-platform, and whether it was a standard release or a custom build?
+Was the published work run on a standard release build, or a custom
+compilation? If custom, could you send the `.tpl` source, or simply a
+diff against the v3.30.22.1 release source? We would rather compile
+locally than depend on a platform-specific binary, and a diff would
+likely answer the question without either of us building anything.
 
-We ask because the repository is internally inconsistent on this point.
-`ss3/Notes.md` names version 3.30.21.1 but links to the 3.30.22.1
-release; `ss3/02-outside-ss3-r4ss.R` names 3.30.22.1; and the official
-3.30.22.1 macOS binary self-reports as `3.30.22.beta: not an official
-version of SS`. A comment in the fitting script also mentions "a custom
-compilation that fixes lognormal prior density function if necessary",
-which we would want to know about if it was used.
+We ask because the repository is inconsistent on version: `ss3/Notes.md`
+names 3.30.21.1 but links the 3.30.22.1 release, `02-outside-ss3-r4ss.R`
+names 3.30.22.1, and the official 3.30.22.1 binary self-reports as
+`3.30.22.beta`. The fitting script also mentions "a custom compilation
+that fixes lognormal prior density function if necessary".
 
-Relatedly, and this is our most important question: **what convergence
-protocol was used?** Specifically, were jittered or multiple starts run,
-and if so how many and with what dispersion?
+For what it is worth we have checked, and that particular fix cannot
+affect these models: none of the 21 configurations uses a lognormal
+prior. Every prior is absent, CASAL's beta, or normal. A one-line
+confirmation either way would be enough.
 
-We ask because we are finding this likelihood surface to be strongly
-multi-modal. Perturbed configurations started from the supplied control
-files converge, with small maximum gradient components, to optima several
-hundred likelihood units worse than the same configuration started from a
-different point. Any comparison between configurations is meaningless
-unless each is at its own best optimum, so we need to know whether the
-published runs were multi-started before we can interpret differences
-among them.
+## 2. Fitted outputs
 
-## 2. Final fitted outputs
-
-The complete final output directory for A0: `Report.sso`,
+The complete final output directory for A0 -- `Report.sso`,
 `CompReport.sso`, `warning.sso`, `ss.par`, `covar.sso`, `ss_summary.sso`,
-and `Forecast-report.sso`.
+`Forecast-report.sso` -- and the equivalents for the sensitivity runs,
+profiles and retrospectives where they exist.
 
-Our A0 converges and returns 2023 depletion of 0.086 (SD 0.005), which is
-consistent with the published 0.09 and CI of 0.08 to 0.09. But we cannot
-confirm we have reproduced your model without comparing likelihood
-components, the parameter vector, warnings, and gradients, and we are not
-willing to describe our fit as a reproduction until we can.
+Our A0 converges and returns 2023 S/S0 of 0.086 (SD 0.005), consistent
+with the published 0.09 and CI of 0.08-0.09. But we cannot describe that
+as reproducing your model without comparing likelihood components, the
+parameter vector, warnings and gradients.
 
-Where they exist, we would also like the final output directories for the
-reported sensitivities, likelihood profiles, retrospectives, and the MCMC
-runs including posterior files.
+## 3. The MCMC output for A1 and B2, and one observation behind it
 
-## 3. Two specific questions about the model
+This is our most specific request, and the reason for it is the one
+substantive thing we have that is not in the Research Document.
 
-**Catch multipliers.** The control file fixes these at phase -50 with
-values including 2.702703 for bottom trawl discards, 3.703704 for hook
-and line discards, IPHC and HBLL, and 10 for iRec. Could you point us to
-the source for each, and confirm what they represent? They encode the
-discard mortality assumptions and their provenance is not documented in
-the repository.
+Section 3.3 states that models were assessed as converged when the
+maximum absolute log-likelihood gradient was < 0.0001 and the Hessian was
+invertible. We have multi-started every configuration -- 11 starts each
+for the published models, 21 for our own diagnostics, jittered by 10% of
+each estimated parameter's bounded range -- and we find that this
+criterion does not discriminate on this likelihood surface.
 
-**A8 (HBLL only).** Our refit returns 2023 depletion of 0.997 with a
-standard deviation of 0.000 and unfished spawning output of 1.08e7. It
-appears to carry no information on absolute scale. Did you see the same
-behaviour, and was A8 given any weight in an ensemble or in the
-derivation of reference points?
+Eleven of the 21 published configurations reach, from the supplied
+initial values, an optimum more than 10 likelihood units above the best
+we can find for the same configuration. Three are roughly 650 units
+above: B2, B4 and A13. Every one of those poor optima satisfies your
+stated criterion -- small gradient, invertible Hessian, no parameters at
+bounds. The penalty is almost entirely in the length compositions; B2's
+composition likelihood falls from 1194.0 to 537.9 at the better optimum.
 
-More generally, which configuration underpins the published reference
-points, and if an ensemble was used, how were the models weighted?
+We want to be clear about what this does and does not mean. Estimated
+status is almost unaffected: across all 21 configurations the largest
+change in 2023 S/S0 between the supplied start and the better optimum is
+0.022, and most are 0.000. **This does not appear to affect the stock
+status conclusions in the Research Document.** It bears on composition
+fits, residual diagnostics, and any comparison between models made on
+likelihood.
+
+Which brings us to the request. B2 is both one of the three largest
+penalties and one of only two models you sampled with MCMC. The
+posterior samples and log-posterior traces for B2 would tell us a great
+deal: if the chains explored the better mode, the trace would show it and
+our concern is substantially reduced; if they stayed in the neighbourhood
+of the MLE start, the posterior is centred on a mode roughly 650
+likelihood units above another one. Either way that is more informative
+than anything we can compute from inputs alone.
+
+If the raw `adnuts` output or the posterior files still exist, those
+would be ideal.
 
 ## 4. Biological data
 
-We hold `survey-samples.rds` and `commercial-samples.rds`. Two gaps:
+We hold `survey-samples.rds` and `commercial-samples.rds`. Two items from
+the reviewer's list remain outstanding:
 
 - Joint age-length-maturity-reproductive records with sample provenance.
-- Fleet documentation for discard sampling, retention, and the mortality
-  conversions behind the catch multipliers above.
+- Fleet documentation for discard sampling and retention, beyond the
+  Courtney (2014) rates already given in Section 2.1.
 
 We are requesting the midwater trawl commercial biological samples
-separately through the Groundfish Data Unit, since those are commercial
-records; no action needed from you on that.
+separately through the Groundfish Data Unit; no action needed from you.
 
 ## One thing you may want to know
 
 The review raised the possibility that the numeric sex codes in the
 composition inputs were reversed, which would have required the
-compositions and the base model to be rebuilt. We have audited it and
-they are not reversed. The codes are correct as used, confirmed against
-the DFO groundfish data dictionary published on open.canada.ca and
-against several independent lines of evidence in the data themselves. We
-mention it so the question does not reach you second-hand as an open
-concern.
+compositions and base model to be rebuilt. We have audited it and they
+are not reversed. The codes are correct as used, confirmed against the
+DFO groundfish data dictionary published on open.canada.ca and against
+several independent lines of evidence in the data. We mention it so the
+question does not reach you second-hand as an open concern.
+
+We also reproduce your A8 finding: fitting to the HBLL Outside index
+alone gives 2023 S/S0 of 0.997 with a standard deviation of 0.000 and
+unfished spawning output of 1.08e7. Consistent with your note that it had
+convergence issues you could not resolve.
 
 Happy to take any of this on a call if that is easier than assembling
 files.

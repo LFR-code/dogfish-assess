@@ -141,6 +141,8 @@ separate outstanding request (`data-request-midwater-trawl.md`).
 - `fit_ss3()` was hardcoded to another user's machine and could not run
   as supplied. Now resolves a repository-local binary.
 - **A8 (HBLL only) is degenerate**: depletion 0.997, standard deviation
-  0.000, unfished spawning output 1.08e7. It appears to carry no scale
-  information. This is not raised in the report and should be checked
-  before A8 is given any weight in an ensemble.
+  0.000, unfished spawning output 1.08e7. It carries no scale
+  information. This corroborates rather than corrects the authors: Res.
+  Doc. section 3.3.1 records that A8 "had convergence issues we could not
+  resolve" and it is excluded from the document. Not an outstanding
+  issue.
